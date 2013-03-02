@@ -33,6 +33,6 @@ function handleStatusChange(session){
         $("body").trigger("fb:loginReady");
     }
     else  {
-        FB.login();
+        FB.login(function(response){},{scope:'read_stream'});
     }
 }
