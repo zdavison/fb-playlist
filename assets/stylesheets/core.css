@@ -61,7 +61,7 @@ table
 
 body
 {
-  background-color: #dadada;
+  background-color: #ffffff;
 }
 
 .hidden
@@ -69,16 +69,35 @@ body
   display: none;
 }
 
+.views
+{
+  width: 700px;
+  margin: 0 auto;
+}
+
 .searchView
 {
-  background-color: red;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
+  padding-top: 100px;
+}
+
+.searchView input
+{
+  position: relative;
+  width: 100%;
+  font-size: 5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #dadada;
+  color: #333;
+  text-align: center;
 }
 
 .searchResultsView
 {
-  background-color: yellow;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
 }

@@ -15,7 +15,9 @@
 <body>
 
 <div class="views">
-	<div class="searchView"></div>
+	<div class="searchView">
+		<input type="text" placeholder="Username"></input>
+	</div>
 	<div class="searchResultsView">
 		<ul>
 		</ul>
@@ -23,13 +25,9 @@
 </div>
 
 <script>
-	$(document).ready(function(){
-		var itemModel = new playlist.Item();
-		var item = new playlist.ItemView({model:itemModel});
-
+	$(document).ready(function()
+	{
 		var controller = new playlist.ItemController({});
-		
-		$("ul",".searchResultsView").append(item.render().el);
 
 		Backbone.history.start();
 	});
