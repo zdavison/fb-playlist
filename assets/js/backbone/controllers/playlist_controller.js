@@ -21,7 +21,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchView = new playlist.SearchView({el:".searchView"});
 		this.searchView.bind("playlist:search",this.onSearch);
 		this.friendSearchView = new playlist.FriendListView({el:".friendList",collection:this.searchFriendList});
-		this.itemListView = new playlist.ItemListView({el: ".friendList",collection:this.itemList});
+		this.itemListView = new playlist.ItemListView({el: ".results",collection:this.itemList});
 
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);

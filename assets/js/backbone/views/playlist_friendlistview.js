@@ -19,7 +19,7 @@ playlist.FriendListView = Backbone.View.extend({
 
 	onAddItem: function(item,index)
 	{
-		item = new playlist.FriendView({model:item,index:index});
-		this.elList.append(item.render().el);
+		var friendView = new playlist.FriendView({model:item,index:index});
+		this.elList.append(friendView.render().el);
 	}
 });
