@@ -18,7 +18,7 @@ playlist.ItemListView = Backbone.View.extend({
 
 	onAddItem: function(item,index)
 	{
-		item = new playlist.LinkView({model:item,index:index});
+		item = new playlist.ItemView({model:item,index:index});
 		this.elList.append(item.render().el);
 	}
 });

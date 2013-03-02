@@ -21,6 +21,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchView = new playlist.SearchView({el:".searchView"});
 		this.searchView.bind("playlist:search",this.onSearch);
 		this.friendSearchView = new playlist.FriendListView({el:".friendList",collection:this.searchFriendList});
+		this.itemListView = new playlist.ItemListView({el: ".friendList",collection:this.itemList});
 
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
@@ -94,8 +95,6 @@ playlist.ItemController = Backbone.Router.extend({
 		this.itemList.reset(result.data);
 		if(result.paging && result.paging.next)
 			this.loadLinksWithURL(result.paging.next);
-		console.log("links is back");
-		console.log(result.data);
 	},
 
 	loadLinksForUser: function(userID)
