@@ -73,6 +73,7 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	onFBFriendsLoaded: function(response){
+		this.searchFriendList.reset(response.friends.data);
 		this.friendList.reset(response.friends.data);
 	},
 
