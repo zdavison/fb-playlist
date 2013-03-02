@@ -22,6 +22,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchView.bind("playlist:search",this.onSearch);
 		this.friendSearchView = new playlist.FriendListView({el:".friendList",collection:this.searchFriendList});
 		this.itemListView = new playlist.ItemListView({el: ".results",collection:this.itemList});
+		this.lastId;
 
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
@@ -62,12 +63,15 @@ playlist.ItemController = Backbone.Router.extend({
 
 	searchById: function(id)
 	{
+		$(".results ul").html("");
+
 		FB.api('/' + id, {
           fields: 'links'
         },
         this.onFBLinksLoaded);
 
         $(".friendList").addClass("hidden");
+        $(".results").removeClass("hidden");
 	},
 
 	onSearchForUsername: function(name)
@@ -78,6 +82,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 		this.searchFriendList.reset(possibleFriends);
 		$(".friendList").removeClass("hidden");
+		$(".results").addClass("hidden");
 	},
 
 	onFBLogin: function(){
