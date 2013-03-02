@@ -12,7 +12,6 @@ window.fbAsyncInit = function() {
   });
 
   FB.getLoginStatus(handleStatusChange);
-  authUser();
 };
 
 // Load the SDK Asynchronously
@@ -24,11 +23,6 @@ window.fbAsyncInit = function() {
  ref.parentNode.insertBefore(js, ref);
 }(document));
 
-//Detect when Facebook tells us that the user's session has been returned
-function authUser() {
-  FB.Event.subscribe('auth.statusChange', handleStatusChange);
-}
-
 // Handle status changes
 function handleStatusChange(session){
     console.log('Got the user\'s session: ', session);
@@ -39,6 +33,6 @@ function handleStatusChange(session){
         $("body").trigger("fb:loginReady");
     }
     else  {
-        console.log("auth failed");
+        FB.login();
     }
 }
