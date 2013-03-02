@@ -9,12 +9,10 @@ playlist.ItemListView = Backbone.View.extend({
 		this.elList = $("ul",$(this.el));
 
 		this.collection.bind("reset",this.onReset);
-		this.collection.bind("add",this.onReset);
 	},
 
 	onReset: function()
 	{
-		this.elList.html("");
 		this.collection.each(this.onAddItem);
 	},
 

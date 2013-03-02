@@ -91,7 +91,7 @@ playlist.ItemController = Backbone.Router.extend({
 	onFBLinksLoaded: function(response)
 	{
 		var result = (response.links) ? response.links : response;
-		this.itemList.add(result.data);
+		this.friendList.reset(result.data);
 		if(result.paging && result.paging.next)
 			this.loadLinksWithURL(result.paging.next);
 		console.log("links is back");
