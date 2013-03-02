@@ -1,16 +1,23 @@
 var playlist = window.playlist || {};
 
-playlist.ItemView = new Backbone.View.extend({
+playlist.ItemView = Backbone.View.extend({
+
+	tagName: "li",
+
+	className: "item",
 
 	initialize: function(options)
 	{
-		this.template = "../templates/playlist_item.handlebars";
 		this.render();
 	},
 
 	render: function()
 	{
-		$(this.el).html(handlebars.template);
+		var html = "<li class='item'>"+this.model.get("title")+"</li>";
+
+		$(this.el).html(html);
+
+		return this;
 	}
 
 });

@@ -2,7 +2,7 @@ var playlist = window.playlist || {};
 
 playlist.Item = Backbone.Model.extend({
 	defaults:{
-		title:"",
+		title:"TEST",
 		description:""
 	}
 });
