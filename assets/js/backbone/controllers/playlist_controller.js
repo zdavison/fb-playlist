@@ -48,6 +48,7 @@ playlist.ItemController = Backbone.Router.extend({
 			return item.get("name").toLowerCase().indexOf(realName.toLowerCase()) > -1;
 		});
 		this.loadLinksForUser(user.get("id"));
+		$(".friendList").addClass("hidden");
 	},
 
 	onSearchForUsername: function(name)

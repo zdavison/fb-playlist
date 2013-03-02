@@ -3,7 +3,6 @@ var playlist = window.playlist || {};
 playlist.ItemView = Backbone.View.extend({
 
 	tagName: "li",
-
 	className: "item",
 
 	initialize: function(options)
@@ -13,7 +12,7 @@ playlist.ItemView = Backbone.View.extend({
 
 	render: function()
 	{
-		var html = "<li class='item'>"+this.model.get("title")+"</li>";
+		var html = "<li class='item'>"+this.model.get("url")+"</li>";
 
 		$(this.el).html(html);
 
