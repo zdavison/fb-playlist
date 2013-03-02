@@ -12,7 +12,7 @@ playlist.SoundcloudItemView = Backbone.View.extend({
 
 	render: function()
 	{
-		var html = "<iframe src='https://w.soundcloud.com/player/?url=";
+		var html = "<iframe class='soundcloud-player' src='https://w.soundcloud.com/player/?url=";
 		html += this.model.get("link") + "&auto_play=true&amp;show_artwork=true'></iframe>";
 		$(this.el).html(html);
 

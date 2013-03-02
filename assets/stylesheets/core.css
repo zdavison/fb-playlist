@@ -227,3 +227,9 @@ body
   text-overflow: ellipsis;
   padding: 5px;
 }
+
+.item .soundcloud-player
+{
+  width: 880px;
+  height: 167px;
+}
