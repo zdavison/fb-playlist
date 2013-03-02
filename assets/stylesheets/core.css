@@ -61,7 +61,7 @@ table
 
 body
 {
-  background-color: #ffffff;
+  background-color: #37352f;
 }
 
 .hidden
@@ -175,15 +175,21 @@ body
 
 .item span
 {
-  font-family: "Helvetica";
+  font-family: "Helvetica-Bold";
   font-size: 2em;
-  padding-left: 40;
-  vertical-align: middle;
+  padding-left: 120px;
+  color: #fdcf00;
 }
 
-.item li
+.item
 {
   height: 130px;
   width: 100%;
   text-overflow: ellipsis;
+}
+
+.soundcloud
+{
+  width:100%; 
+  height:100%; 
 }

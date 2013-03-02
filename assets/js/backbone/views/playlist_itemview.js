@@ -7,7 +7,15 @@ playlist.ItemView = Backbone.View.extend({
 
 	initialize: function(options)
 	{
+		_.bindAll(this,"onClick");
 		this.render();
+
+		$(this.el).click(this.onClick);
+	},
+
+	onClick: function()
+	{
+		$("body").trigger("playlist:playLink",[this]);
 	},
 
 	render: function()

@@ -27,6 +27,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
 		$("body").bind("fb:loginReady",this.onFBLogin);
 		$("body").bind("playlist:searchById",this.onSearchById);
+		$("body").bind("playlist:playLink",this.onPlayLink);
 	},
 
 	showView: function(el)
@@ -114,6 +115,11 @@ playlist.ItemController = Backbone.Router.extend({
 		FB.api(url, {},
 		this.onFBLinksLoaded);
 		console.log(url);
+	},
+
+	onPlayLink: function(event,view){
+		var scView = new playlist.SoundcloudItemView({model:view.model});
+		$(view.el).html(scView.render().el);
 	}
 });
 
