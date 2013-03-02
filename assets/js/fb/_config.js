@@ -12,6 +12,7 @@ window.fbAsyncInit = function() {
   });
 
   FB.getLoginStatus(handleStatusChange);
+  authUser();
 };
 
 // Load the SDK Asynchronously
@@ -38,6 +39,6 @@ function handleStatusChange(session){
         $("body").trigger("fb:loginReady");
     }
     else  {
-      authUser();
+        console.log("auth failed");
     }
 }

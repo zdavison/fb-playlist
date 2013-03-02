@@ -36,7 +36,10 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onSearch: function(userId)
 	{
-		console.log(userId);
+		FB.api('/' + userId, {
+          fields: 'links'
+        },
+        this.onFBFriendsLoaded);
 	},
 
 	onFBLogin: function(){
