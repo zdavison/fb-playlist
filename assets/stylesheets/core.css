@@ -100,8 +100,10 @@ html
 
 .searchView
 {
+  position: relative;
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 
 .searchView input
@@ -136,6 +138,7 @@ html
   width: 100%;
   border: 1px solid #dadada;
   margin-top: -5px;
+  z-index: -1;
 }
 
 .friendList .friend-view

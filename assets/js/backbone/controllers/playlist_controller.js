@@ -64,6 +64,8 @@ playlist.ItemController = Backbone.Router.extend({
           fields: 'links'
         },
         this.onFBLinksLoaded);
+
+        $(".friendList").addClass("hidden");
 	},
 
 	onSearchForUsername: function(name)
@@ -73,6 +75,7 @@ playlist.ItemController = Backbone.Router.extend({
 		});
 
 		this.searchFriendList.reset(possibleFriends);
+		$(".friendList").removeClass("hidden");
 	},
 
 	onFBLogin: function(){

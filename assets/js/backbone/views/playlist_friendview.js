@@ -18,6 +18,7 @@ playlist.FriendView = Backbone.View.extend({
 
 	onClick: function()
 	{
+		$("input").val(this.model.get("name"));
 		$("body").trigger("playlist:searchById",[this.model.get("id")]);
 	},
 
