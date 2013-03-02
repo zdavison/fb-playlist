@@ -19,5 +19,4 @@ playlist.ItemView = Backbone.View.extend({
 
 		return this;
 	}
-
 });

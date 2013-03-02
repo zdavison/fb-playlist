@@ -4,11 +4,13 @@
   <meta charset="utf-8">
   <title>PLYLSTR</title>
   <meta name="description" content="Gonna playlist your shit">
+  <link href="assets/stylesheets/core.css" rel="stylesheet" type="text/css">
   <script type="text/javascript" src="assets/js/vendor/jquery.js"></script>
   <script type="text/javascript" src="assets/js/vendor/underscore.js"></script>
   <script type="text/javascript" src="assets/js/vendor/backbone.js"></script>
+  <script type="text/javascript" src="assets/js/backbone/controllers/playlist_controller.js"></script>
   <script type="text/javascript" src="assets/js/backbone/models/playlist_item.js"></script>
-  <script type="text/javascript" src="assets/js/backbone/views/playlistItemView.js"></script>
+  <script type="text/javascript" src="assets/js/backbone/views/playlist_itemview.js"></script>
 </head>
 <body>
 
@@ -21,10 +23,16 @@
 </div>
 
 <script>
-	var itemModel = new playlist.Item();
-	var item = new playlist.ItemView({model:itemModel});
+	$(document).ready(function(){
+		var itemModel = new playlist.Item();
+		var item = new playlist.ItemView({model:itemModel});
 
-	$("ul",".searchResultsView").append(item.render().el);
+		var controller = new playlist.ItemController({});
+		
+		$("ul",".searchResultsView").append(item.render().el);
+
+		Backbone.history.start();
+	});
 </script>
 </body>
 </html>
