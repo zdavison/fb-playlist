@@ -15,5 +15,6 @@ playlist.ItemList = Backbone.Collection.extend({
 			}
 		}
 		this.reset(parsedData);
+		console.log(parsedData);
 	}
 });
