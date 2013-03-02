@@ -13,7 +13,7 @@ playlist.ItemView = Backbone.View.extend({
 	render: function()
 	{
 		var html = "<li class='item'>"+this.model.get("url")+"</li>";
-
+		
 		$(this.el).html(html);
 
 		return this;
