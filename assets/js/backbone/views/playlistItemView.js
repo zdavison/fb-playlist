@@ -4,6 +4,7 @@ playlist.ItemView = new Backbone.View.extend({
 
 	initialize: function(options)
 	{
+		this.template = "../templates/playlist_item.handlebars";
 		this.render();
 	},
 
