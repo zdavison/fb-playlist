@@ -12,8 +12,8 @@ playlist.ItemView = Backbone.View.extend({
 
 	render: function()
 	{
-		var html = "<li class='item'>"+this.model.get("url")+"</li>";
-
+		var html = "<img src='"+this.model.get("picture")+"'/>";
+		html += "<span>"+this.model.get("name")+"</span>";
 		$(this.el).html(html);
 
 		return this;
