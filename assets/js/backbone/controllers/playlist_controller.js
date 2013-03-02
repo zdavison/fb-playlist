@@ -10,7 +10,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername");
+		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById");
 
 		// models
 		this.friendList = new playlist.FriendList();
@@ -25,6 +25,7 @@ playlist.ItemController = Backbone.Router.extend({
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
 		$("body").bind("fb:loginReady",this.onFBLogin);
+		$("body").bind("playlist:searchById",this.onSearchById);
 	},
 
 	showView: function(el)
@@ -47,13 +48,26 @@ playlist.ItemController = Backbone.Router.extend({
 		var user = this.friendList.find(function(item){
 			return item.get("name").toLowerCase().indexOf(realName.toLowerCase()) > -1;
 		});
-		this.loadLinksForUser(user.get("id"));
 		$(".friendList").addClass("hidden");
+
+		this.searchById(user.get("id"));
+	},
+
+	onSearchById: function(e, id)
+	{
+		this.searchById(id);
+	},
+
+	searchById: function(id)
+	{
+		FB.api('/' + id, {
+          fields: 'links'
+        },
+        this.onFBLinksLoaded);
 	},
 
 	onSearchForUsername: function(name)
 	{
-		console.log(name);
 		var possibleFriends = this.friendList.filter(function(friend){
 			return friend.get("name").toLowerCase().indexOf(name.toLowerCase()) > -1;
 		});
@@ -63,17 +77,19 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onFBLogin: function(){
 		FB.api('/me', {
-          fields: 'friends,picture'
+          fields: 'friends'
         },
         this.onFBFriendsLoaded);
 	},
 
-	onFBFriendsLoaded: function(response){
+	onFBFriendsLoaded: function(response)
+	{
 		this.searchFriendList.reset(response.friends.data);
 		this.friendList.reset(response.friends.data);
 	},
 
-	onFBLinksLoaded: function(response){
+	onFBLinksLoaded: function(response)
+	{
 		var result = (response.links) ? response.links : response;
 		this.itemList.add(result.data);
 		if(result.paging && result.paging.next)
@@ -82,7 +98,8 @@ playlist.ItemController = Backbone.Router.extend({
 		console.log(result.data);
 	},
 
-	loadLinksForUser: function(userID){
+	loadLinksForUser: function(userID)
+	{
 		FB.api('/' + userID, {
 			fields: 'links'
 		},
@@ -90,7 +107,8 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	//used for pagination
-	loadLinksWithURL: function(url){
+	loadLinksWithURL: function(url)
+	{
 		FB.api(url, {},
 		this.onFBLinksLoaded);
 		console.log(url);

@@ -8,8 +8,17 @@ playlist.FriendView = Backbone.View.extend({
 
 	initialize: function(options)
 	{
+		_.bindAll(this,"onClick");
+
 		this.render();
 		$(this.el).toggleClass("even",options.index%2==0);
+
+		$(this.el).click(this.onClick);
+	},
+
+	onClick: function()
+	{
+		$("body").trigger("playlist:searchById",[this.model.get("id")]);
 	},
 
 	render: function()
