@@ -10,6 +10,10 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
+		_.bindAll(this,"onSearch");
+
+		this.searchView = new playlist.SearchView({el:".searchView"});
+		this.searchView.bind("playlist:search",this.onSearch);
 	},
 
 	showView: function(el)
@@ -26,5 +30,10 @@ playlist.ItemController = Backbone.Router.extend({
 	showResultsView: function()
 	{
 		this.showView(".searchResultsView");
+	},
+
+	onSearch: function(userId)
+	{		
+		console.log(userId);
 	}
 });
