@@ -13,15 +13,18 @@
   <script type="text/javascript" src="assets/js/backbone/views/playlist_search.js"></script>
   <script type="text/javascript" src="assets/js/backbone/models/playlist_item.js"></script>
   <script type="text/javascript" src="assets/js/backbone/models/friend.js"></script>
+  <script type="text/javascript" src="assets/js/backbone/views/playlist_friendview.js"></script>
+  <script type="text/javascript" src="assets/js/backbone/views/playlist_friendlistview.js"></script>
   <script type="text/javascript" src="assets/js/backbone/controllers/playlist_controller.js"></script>
 </head>
 <body>
 
 <div class="views">
 	<div class="searchView"></div>
-	<div class="searchResultsView">
-		<ul>
-		</ul>
+	<div class="friendList left">
+		<ul></ul>
+	</div>
+
 	</div>
 </div>
 
@@ -29,9 +32,10 @@
 	$(document).ready(function()
 	{
 		var controller = new playlist.ItemController({});
-
 		Backbone.history.start();
 	});
 </script>
+
+<div class="fb-root"></div>
 </body>
 </html>

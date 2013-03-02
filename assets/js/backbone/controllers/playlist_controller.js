@@ -10,18 +10,25 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded");
+		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername");
 
+		// models
+		this.friendList = new playlist.FriendList();
+		this.searchFriendList = new playlist.FriendList();
+		this.itemList = new playlist.ItemList();
+
+		// views
 		this.searchView = new playlist.SearchView({el:".searchView"});
 		this.searchView.bind("playlist:search",this.onSearch);
+		this.friendSearchView = new playlist.FriendListView({el:".friendList",collection:this.searchFriendList});
+
+		// bind events
+		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
 		$("body").bind("fb:loginReady",this.onFBLogin);
-		this.friendList = new playlist.FriendList();
-		this.itemList = new playlist.ItemList();
 	},
 
 	showView: function(el)
 	{
-		$(".views").children().addClass("hidden");
 		$(el).removeClass("hidden");
 	},
 
@@ -48,9 +55,19 @@ playlist.ItemController = Backbone.Router.extend({
         this.onFBLinksLoaded);
 	},
 
+	onSearchForUsername: function(name)
+	{
+		console.log(name);
+		var possibleFriends = this.friendList.filter(function(friend){
+			return friend.get("name").toLowerCase().indexOf(name.toLowerCase()) > -1;
+		});
+
+		this.searchFriendList.reset(possibleFriends);
+	},
+
 	onFBLogin: function(){
 		FB.api('/me', {
-          fields: 'friends'
+          fields: 'friends,picture'
         },
         this.onFBFriendsLoaded);
 	},
