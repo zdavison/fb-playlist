@@ -10,10 +10,12 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch");
+		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded");
 
 		this.searchView = new playlist.SearchView({el:".searchView"});
 		this.searchView.bind("playlist:search",this.onSearch);
+		$("body").bind("fb:loginReady",this.onFBLogin);
+		this.friendList = new playlist.FriendList();
 	},
 
 	showView: function(el)
@@ -23,7 +25,7 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	showSearchView: function()
-	{	
+	{
 		this.showView(".searchView");
 	},
 
@@ -33,7 +35,19 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	onSearch: function(userId)
-	{		
+	{
 		console.log(userId);
+	},
+
+	onFBLogin: function(){
+		FB.api('/me', {
+          fields: 'friends'
+        },
+        this.onFBFriendsLoaded);
+	},
+
+	onFBFriendsLoaded: function(response){
+		this.friendList.reset(response.friends.data);
+		console.log(this.friendList);
 	}
 });

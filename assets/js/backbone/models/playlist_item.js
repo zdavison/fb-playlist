@@ -12,7 +12,7 @@ playlist.ItemList = Backbone.Collection.extend({
 
 	fetchByFbLinks: function(userId)
 	{
-		this.fetch({url:url})
+		this.fetch({url:url});
 	},
 
 	parse: function(resp)
