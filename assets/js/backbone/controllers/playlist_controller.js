@@ -37,15 +37,10 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onSearch: function(realName)
 	{
-		//grab userID
 		var user = this.friendList.find(function(item){
 			return item.get("name").toLowerCase().indexOf(realName.toLowerCase()) > -1;
 		});
-
-		FB.api('/' + user.get("id"), {
-          fields: 'links'
-        },
-        this.onFBLinksLoaded);
+		this.loadLinksForUser(user.get("id"));
 	},
 
 	onFBLogin: function(){
@@ -60,7 +55,26 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	onFBLinksLoaded: function(response){
-		this.itemList.reset(response.links.data);
-		console.log(response);
+		var result = (response.links) ? response.links : response;
+		this.itemList.add(result.data);
+		if(result.paging && result.paging.next)
+			this.loadLinksWithURL(result.paging.next);
+		console.log("links is back");
+		console.log(result.data);
+	},
+
+	loadLinksForUser: function(userID){
+		FB.api('/' + userID, {
+			fields: 'links'
+		},
+		this.onFBLinksLoaded);
+	},
+
+	//used for pagination
+	loadLinksWithURL: function(url){
+		FB.api(url, {},
+		this.onFBLinksLoaded);
+		console.log(url);
 	}
 });
+
