@@ -10,7 +10,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername");
+		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById");
 
 		// models
 		this.friendList = new playlist.FriendList();
@@ -25,6 +25,7 @@ playlist.ItemController = Backbone.Router.extend({
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
 		$("body").bind("fb:loginReady",this.onFBLogin);
+		$("body").bind("playlist:searchById",this.onSearchById);
 	},
 
 	showView: function(el)
@@ -49,7 +50,17 @@ playlist.ItemController = Backbone.Router.extend({
 			return item.get("name").toLowerCase().indexOf(realName.toLowerCase()) > -1;
 		});
 
-		FB.api('/' + user.get("id"), {
+		this.searchById(user.get("id"));
+	},
+
+	onSearchById: function(e, id)
+	{
+		this.searchById(id);
+	},
+
+	searchById: function(id)
+	{
+		FB.api('/' + id, {
           fields: 'links'
         },
         this.onFBLinksLoaded);
@@ -57,7 +68,6 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onSearchForUsername: function(name)
 	{
-		console.log(name);
 		var possibleFriends = this.friendList.filter(function(friend){
 			return friend.get("name").toLowerCase().indexOf(name.toLowerCase()) > -1;
 		});
@@ -67,7 +77,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onFBLogin: function(){
 		FB.api('/me', {
-          fields: 'friends,picture'
+          fields: 'friends'
         },
         this.onFBFriendsLoaded);
 	},
@@ -79,6 +89,5 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onFBLinksLoaded: function(response){
 		this.itemList.reset(response.links.data);
-		console.log(response);
 	}
 });
