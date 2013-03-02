@@ -12,11 +12,10 @@ playlist.SoundcloudItemView = Backbone.View.extend({
 
 	render: function()
 	{
-		var html = "<iframe src='https://w.soundcloud.com/player/?url=";
-		html += this.model.get("link") + "&color=BBC4CE&enable_api=true&auto_play=true&amp;show_artwork=true'></iframe>";
+		var html = "<iframe id='soundcloudPlayer' src='https://w.soundcloud.com/player/?url=";
+		html += this.model.get("link") + "&enable_api=true&auto_play=true&amp;show_artwork=true'></iframe>";
 		$(this.el).html(html);
 
 		return this;
 	}
 });
-

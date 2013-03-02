@@ -124,7 +124,11 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onPlayLink: function(event,view){
 		var scView = new playlist.SoundcloudItemView({model:view.model});
-		$(view.el).html(scView.render().el);
+		var soundcloud = $(view.el).html(scView.render().el);
+        var widget       = SC.Widget(document.getElementById("soundcloudPlayer"));
+        widget.bind(SC.Widget.Events.FINISH, function(){
+        	var nextToPlay = $(".results ul").children(".active").closest("li");
+        	nextToPlay.trigger("click");
+        });
 	}
 });
-
