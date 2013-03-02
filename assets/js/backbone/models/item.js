@@ -5,5 +5,5 @@ playlist.Item = Backbone.Model.extend({
 });
 
 playlist.ItemList = Backbone.Collection.extend({
-	model: playlist.Friend
+	model: playlist.Item
 });
