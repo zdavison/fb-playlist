@@ -11,7 +11,6 @@ playlist.ItemView = Backbone.View.extend({
 		this.render();
 
 		$(this.el).click(this.onClick);
-		$(this.el).toggleClass("even",options.index%2==0);
 	},
 
 	onClick: function()
