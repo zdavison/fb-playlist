@@ -10,7 +10,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById");
+		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById","onPlayLink");
 
 		// models
 		this.friendList = new playlist.FriendList();
@@ -138,15 +138,41 @@ playlist.ItemController = Backbone.Router.extend({
 	},
 
 	onPlayLink: function(event,view){
-		$(".active").html(new playlist.ItemView({model:view.model}).render().el);
+		$("#soundcloudPlayer").remove();
+		this.ready = false;
+
+		if(this.vmodel)
+		{
+			$(".active").html(new playlist.ItemView({model:this.vmodel}).render().el);
+		}
+
 		var scView = new playlist.SoundcloudItemView({model:view.model});
-		var soundcloud = $(view.el).html(scView.render().el);
+		var html = scView.render().el;
+		var soundcloud = $(view.el).html(html);
         var widget       = SC.Widget(document.getElementById("soundcloudPlayer"));
-        widget.bind(SC.Widget.Events.FINISH, function(){
-        	var nextToPlay = $(".results ul").children(".active").next();
-        	console.log(nextToPlay);
-        	nextToPlay.trigger("click");
+
+        var me=this;
+        widget.bind(SC.Widget.Events.READY, function() {
+        	me.ready=true;
         });
+        widget.bind(SC.Widget.Events.FINISH, function(){
+        	me.triggerNext();
+        });        
+
+        this.vmodel = view.model;
+
+        _.delay(function(){
+        	if(!me.ready)
+        	{
+        		me.triggerNext();
+        	}
+        },5000);
+	},
+
+	triggerNext: function()
+	{
+		var nextToPlay = $(".results ul").children(".active").next();
+    	nextToPlay.trigger("click");
 	},
 
 	restyleListItems: function()
