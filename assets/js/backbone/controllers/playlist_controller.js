@@ -108,11 +108,18 @@ playlist.ItemController = Backbone.Router.extend({
 	{
 		var result = (response.links) ? response.links : response;
 		if(result.data)
+		{
 			this.itemList.parseAndReset(result.data);
+			this.restyleListItems();
+		}
 		if(result.paging && result.paging.next && this.currentUserID == result.data[0].from.id)
+		{
 			this.loadLinksWithURL(result.paging.next);
+		}
 		else
+		{
 			$('.loading').addClass('hidden');
+		}
 	},
 
 	loadLinksForUser: function(userID)
@@ -140,5 +147,15 @@ playlist.ItemController = Backbone.Router.extend({
         	console.log(nextToPlay);
         	nextToPlay.trigger("click");
         });
+	},
+
+	restyleListItems: function()
+	{
+		var children = $(".results ul").children();
+
+		for(var i=0;i<children.length;i++)
+		{
+			$(children[i]).toggleClass("even",i%2==0);
+		}
 	}
 });
