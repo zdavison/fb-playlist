@@ -91,7 +91,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onFBLogin: function(){
 		FB.api('/me', {
-          fields: 'friends'
+          fields: 'friends,name'
         },
         this.onFBFriendsLoaded);
         $('.loading').removeClass('hidden');
@@ -99,6 +99,9 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onFBFriendsLoaded: function(response)
 	{
+		//lets add ourselves to the list too
+		var me = {id: response.id, name: response.name};
+		response.friends.data.push(me);
 		this.searchFriendList.reset(response.friends.data);
 		this.friendList.reset(response.friends.data);
 		$('.loading').addClass('hidden');
