@@ -94,6 +94,14 @@ body
   -o-transition: all 1.5s; /* Opera */
 }
 
+.slow-animate
+{
+  transition: all 0.3s;
+  -moz-transition: all 0.3s; /* Firefox 4 */
+  -webkit-transition: all 0.3s; /* Safari and Chrome */
+  -o-transition: all 0.3s; /* Opera */
+}
+
 .invisible
 {
   opacity: 0;
@@ -144,6 +152,7 @@ body
   border: 1px solid #dadada;
   margin-top: -5px;
   z-index: -1;
+  padding-top: 95px;
 }
 
 .friendList .friend-view
@@ -185,8 +194,10 @@ body
 
 .results
 {
-  border: 1px solid #dadada;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
   margin-top: -5px;
+  padding-top: 95px;
 }
 
 .item img
@@ -197,6 +208,8 @@ body
 .item
 {
   position: relative;
+  border-left: 1px solid #dadada;
+  border-right: 1px solid #dadada;
 }
 
 .item span
@@ -229,6 +242,11 @@ body
   overflow: hidden;
 }
 
+.fix-to-top
+{
+  position: absolute;
+}
+
 .item img
 {
   width: 90px;
@@ -259,7 +277,7 @@ body
 .loading
 {
   display: block;
-  padding-top: 20px;
+  padding-top: 120px;
   margin-left: auto;
   margin-right: auto;
 }

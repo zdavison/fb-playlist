@@ -37,7 +37,7 @@ playlist.SearchView = Backbone.View.extend({
 
 	render: function()
 	{
-		var html = "<input type='text' placeholder='username' class='middle left animate'></input>";
+		var html = "<input type='text' placeholder='username' class='middle left animate fix-to-top'></input>";
 		$(this.el).html(html);
 	}
 });

@@ -10,6 +10,7 @@ playlist.ItemView = Backbone.View.extend({
 		_.bindAll(this,"onClick");
 		this.render();
 
+		$(this.el).unbind("click");
 		$(this.el).click(this.onClick);
 	},
 

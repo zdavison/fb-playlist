@@ -10,7 +10,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	initialize: function(options)
 	{
-		_.bindAll(this,"onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById","onPlayLink");
+		_.bindAll(this,"onScroll","onSearch","onFBLogin","onFBFriendsLoaded","onFBLinksLoaded","onSearchForUsername","searchById","onSearchById","onPlayLink");
 
 		// models
 		this.friendList = new playlist.FriendList();
@@ -29,6 +29,7 @@ playlist.ItemController = Backbone.Router.extend({
 		$("body").bind("fb:loginReady",this.onFBLogin);
 		$("body").bind("playlist:searchById",this.onSearchById);
 		$("body").bind("playlist:playLink",this.onPlayLink);
+		$(window).scroll(this.onScroll);
 	},
 
 	showView: function(el)
@@ -87,6 +88,7 @@ playlist.ItemController = Backbone.Router.extend({
 		$(".friendList").removeClass("hidden");
 		$(".results").addClass("hidden");
 		$('input').removeClass("middle");
+		$(window).scrollTop(0);
 	},
 
 	onFBLogin: function(){
@@ -185,6 +187,17 @@ playlist.ItemController = Backbone.Router.extend({
 		for(var i=0;i<children.length;i++)
 		{
 			$(children[i]).toggleClass("even",i%2==0);
+		}
+	},
+
+	onScroll: function()
+	{
+		$("input").removeClass("animate").addClass("slow-animate");
+		$("input").css("top", $(window).scrollTop());
+
+		if($(window).scrollTop()>5)
+		{
+			$("input").css("margin-top", "-5px");
 		}
 	}
 });
