@@ -58,12 +58,12 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onSearchById: function(e, id)
 	{
-		this.currentUserID = id;
 		this.searchById(id);
 	},
 
 	searchById: function(id)
 	{
+		this.currentUserID = id;
 		$(".results ul").html("");
 
 		FB.api('/' + id, {
@@ -73,10 +73,12 @@ playlist.ItemController = Backbone.Router.extend({
 
         $(".friendList").addClass("hidden");
         $(".results").removeClass("hidden");
+        $('.loading').removeClass('hidden');
 	},
 
 	onSearchForUsername: function(name)
 	{
+		this.currentUserID = "";
 		var possibleFriends = this.friendList.filter(function(friend){
 			return friend.get("name").toLowerCase().indexOf(name.toLowerCase()) > -1;
 		});
@@ -84,6 +86,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchFriendList.reset(possibleFriends);
 		$(".friendList").removeClass("hidden");
 		$(".results").addClass("hidden");
+		$('input').removeClass("middle");
 	},
 
 	onFBLogin: function(){
@@ -91,22 +94,25 @@ playlist.ItemController = Backbone.Router.extend({
           fields: 'friends'
         },
         this.onFBFriendsLoaded);
+        $('.loading').removeClass('hidden');
 	},
 
 	onFBFriendsLoaded: function(response)
 	{
 		this.searchFriendList.reset(response.friends.data);
 		this.friendList.reset(response.friends.data);
+		$('.loading').addClass('hidden');
 	},
 
 	onFBLinksLoaded: function(response)
 	{
 		var result = (response.links) ? response.links : response;
-		this.itemList.parseAndReset(result.data);
-		console.log(this.currentUserID);
-		console.log(result.data[0].from.id);
+		if(result.data)
+			this.itemList.parseAndReset(result.data);
 		if(result.paging && result.paging.next && this.currentUserID == result.data[0].from.id)
 			this.loadLinksWithURL(result.paging.next);
+		else
+			$('.loading').addClass('hidden');
 	},
 
 	loadLinksForUser: function(userID)
