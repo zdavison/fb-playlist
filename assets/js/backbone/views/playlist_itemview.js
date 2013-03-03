@@ -23,15 +23,15 @@ playlist.ItemView = Backbone.View.extend({
 	render: function()
 	{
 		var n = this.model.get("name");
-		var name = n.length > 40 ? n.substr(0,40) + "..." : n;
+		var name = n.length > 55 ? n.substr(0,55) + "..." : n;
 
-		var html = "<img src='"+this.model.get("picture")+"' class='left'/>";
-		html += "<span class='left name'>"+name+"</span>";
+		var html = "<img class='left fade-in' src='"+this.model.get("picture")+"'/>";
+		html += "<span class='left name fade-in'>"+name+"</span>";
 
-		if(this.model.get("message")!= undefined)
-		{
+		if(this.model.get("message")!== undefined && this.model.get("message") !== '')
 			html += "<span class='date'>"+this.model.get("message")+"</span>";
-		}
+		else if(this.model.get("description")!== undefined && this.model.get("description") !== '')
+			html += "<span class='date'>"+this.model.get("description")+"</span>";
 
 		$(this.el).html(html);
 
