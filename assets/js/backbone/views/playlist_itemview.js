@@ -16,9 +16,9 @@ playlist.ItemView = Backbone.View.extend({
 
 	onClick: function()
 	{
+		$("body").trigger("playlist:playLink",[this]);
 		$(".item").removeClass("active");
 		$(this.el).addClass("active");
-		$("body").trigger("playlist:playLink",[this]);
 	},
 
 	render: function()

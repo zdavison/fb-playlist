@@ -22,7 +22,7 @@ playlist.ItemController = Backbone.Router.extend({
 		this.searchView.bind("playlist:search",this.onSearch);
 		this.friendSearchView = new playlist.FriendListView({el:".friendList",collection:this.searchFriendList});
 		this.itemListView = new playlist.ItemListView({el: ".results",collection:this.itemList});
-		this.lastId;
+		this.currentUserID = "";
 
 		// bind events
 		this.searchView.bind("playlist:searchForUsername",this.onSearchForUsername);
@@ -58,6 +58,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 	onSearchById: function(e, id)
 	{
+		this.currentUserID = id;
 		this.searchById(id);
 	},
 
@@ -102,7 +103,9 @@ playlist.ItemController = Backbone.Router.extend({
 	{
 		var result = (response.links) ? response.links : response;
 		this.itemList.parseAndReset(result.data);
-		if(result.paging && result.paging.next)
+		console.log(this.currentUserID);
+		console.log(result.data[0].from.id);
+		if(result.paging && result.paging.next && this.currentUserID == result.data[0].from.id)
 			this.loadLinksWithURL(result.paging.next);
 	},
 
@@ -119,15 +122,14 @@ playlist.ItemController = Backbone.Router.extend({
 	{
 		FB.api(url, {},
 		this.onFBLinksLoaded);
-		console.log(url);
 	},
 
 	onPlayLink: function(event,view){
+		$(".active").html(new playlist.ItemView({model:view.model}).render().el);
 		var scView = new playlist.SoundcloudItemView({model:view.model});
 		var soundcloud = $(view.el).html(scView.render().el);
         var widget       = SC.Widget(document.getElementById("soundcloudPlayer"));
         widget.bind(SC.Widget.Events.FINISH, function(){
-    		$(".active").html(new playlist.ItemView({model:view.model}).render().el);
         	var nextToPlay = $(".results ul").children(".active").next();
         	console.log(nextToPlay);
         	nextToPlay.trigger("click");
