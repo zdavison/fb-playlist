@@ -3,7 +3,7 @@ var playlist = window.playlist || {};
 playlist.ItemView = Backbone.View.extend({
 
 	tagName: "li",
-	className: "item left",
+	className: "item left animate",
 
 	initialize: function(options)
 	{
@@ -17,7 +17,8 @@ playlist.ItemView = Backbone.View.extend({
 	onClick: function()
 	{
 		$(".item").removeClass("active");
-		$("body").trigger("playlist:playLink",[this]).addClass("active");
+		$(this.el).addClass("active");
+		$("body").trigger("playlist:playLink",[this]);
 	},
 
 	render: function()
