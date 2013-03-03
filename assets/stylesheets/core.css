@@ -242,11 +242,12 @@ body
   padding: 5px;
 }
 
-.item .active
+.item.active
 {
   background-color: #C7C7C7;
-  box-shadow: 0 0 100px #333;
+  box-shadow: 0 0 60px #333;
   z-index: 1000;
+  border: 1px solid #999;
 }
 
 .item #soundcloudPlayer
