@@ -148,7 +148,7 @@ playlist.ItemController = Backbone.Router.extend({
 
 		if(this.vmodel)
 		{
-			$(".active").html(new playlist.ItemView({model:this.vmodel}).render().el);
+			$(".active").html($(new playlist.ItemView({model:this.vmodel}).render().el).contents());
 		}
 
 		var scView = new playlist.SoundcloudItemView({model:view.model});

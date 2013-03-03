@@ -3,7 +3,7 @@ var playlist = window.playlist || {};
 playlist.SoundcloudItemView = Backbone.View.extend({
 
 	tagName: "li",
-	className: "item soundcloud",
+	className: "soundcloud",
 
 	initialize: function(options)
 	{

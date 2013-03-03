@@ -208,8 +208,8 @@ body
 .item
 {
   position: relative;
-  border-left: 1px solid #dadada;
   border-right: 1px solid #dadada;
+  border-left: 1px solid #dadada;
 }
 
 .item span
